@@ -37,7 +37,12 @@ import { mapGetters, mapMutations } from "vuex";
 import { BButton, BRow, BIconX, BCard } from "bootstrap-vue";
 export default {
   name: "EditRooms",
-  props: ["nr", "index"],
+  props: {
+    index: {
+      type: Number,
+      required: true,
+    },
+  },
   components: {
     BButton,
     BRow,
