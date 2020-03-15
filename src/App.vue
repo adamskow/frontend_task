@@ -1,7 +1,7 @@
 <template>
-  <b-container class="" fluid>
+  <b-container class="p-0" fluid>
     <base-nav></base-nav>
-    <b-col class="column col-sm-12 col-md-6 col-lg-7 mt-4">
+    <b-col class="column col-sm-12 col-md-10 col-lg-10 mt-4">
       <base-header></base-header>
       <b-row class="justify-content-center">
         <floor-form></floor-form>
@@ -17,13 +17,10 @@
 </template>
 
 <script>
-import Vue from "vue";
 import BaseNav from "./components/BaseNav";
 import BaseHeader from "./components/BaseHeader";
 import FloorForm from "./components/FloorForm";
-import { LayoutPlugin, BButton } from "bootstrap-vue";
-
-Vue.use(LayoutPlugin);
+import { BButton, BCol, BRow, BContainer } from "bootstrap-vue";
 
 export default {
   name: "App",
@@ -32,6 +29,9 @@ export default {
     BaseHeader,
     FloorForm,
     BButton,
+    BCol,
+    BRow,
+    BContainer,
   },
 };
 </script>

@@ -16,10 +16,10 @@
 </template>
 
 <script>
-import { BIconInfo, BCard } from "bootstrap-vue";
+import { BIconInfo, BCard, BRow } from "bootstrap-vue";
 
 export default {
   name: "BaseHeader",
-  components: { BIconInfo, BCard },
+  components: { BIconInfo, BCard, BRow},
 };
 </script>
