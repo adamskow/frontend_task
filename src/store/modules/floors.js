@@ -17,7 +17,9 @@ const getters = {
     return state.floors[id].rooms.slice().sort((a, b) => a - b);
   },
   getEditedRooms: state => id => {
-    return [...new Set(state.floors[id].editedRooms.slice().sort((a, b) => a - b))];
+    return [
+      ...new Set(state.floors[id].editedRooms.slice().sort((a, b) => a - b)),
+    ];
   },
   getField,
 };
@@ -50,7 +52,10 @@ const mutations = {
   saveEditedRooms(state, index) {
     state.floors[index].rooms = [...new Set(state.floors[index].editedRooms)];
     state.floors[index].editedRooms = [];
-  }
+  },
+  deleteFloor(state, index) {
+    state.floors.splice(index, 1);
+  },
 };
 
 export default {

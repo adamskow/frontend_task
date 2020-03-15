@@ -25,11 +25,11 @@
         <div class="input-group">
           <label for="nr-range-to" class="mr-4 input-label">do</label>
           <b-form-input
-            class="range-input mr-4"
+            class="range-input mr-3"
             id="nr-range-to"
             v-model="floor.rangeTo"
             @input="
-              onInput({
+              handleInput({
                 index: index,
                 rangeFrom: floor.rangeFrom,
                 rangeTo: floor.rangeTo,
@@ -40,9 +40,9 @@
         </div>
         <b-icon-pencil
           font-scale="2"
-          class="text-success"
+          variant="success"
           @click="
-            onEdit({
+            handleEditClick({
               nr: floor.nr,
               index,
               rangeFrom: floor.rangeFrom,
@@ -50,6 +50,11 @@
             })
           "
         />
+        <b-icon-x
+          @click="deleteFloor(index)"
+          variant="danger"
+          font-scale="2"
+        ></b-icon-x>
       </b-form>
       <b-row class="m-3 justify-content-center">
         <b-collapse :id="`${index}`">
@@ -65,7 +70,7 @@
 
 <script>
 import Vue from "vue";
-import { mapMutations } from "vuex";
+import { mapMutations, mapGetters } from "vuex";
 import { mapMultiRowFields } from "vuex-map-fields";
 import {
   BFormInput,
@@ -74,6 +79,7 @@ import {
   BRow,
   BForm,
   BIconPencil,
+  BIconX,
 } from "bootstrap-vue";
 import EditRooms from "./EditRooms";
 Vue.use(CollapsePlugin);
@@ -87,20 +93,24 @@ export default {
     BRow,
     BForm,
     BIconPencil,
+    BIconX,
   },
   computed: {
     ...mapMultiRowFields(["floors"]),
+    ...mapGetters({
+      rooms: "getRooms",
+    }),
   },
   methods: {
-    ...mapMutations(["addFloor", "addRooms", "addEditedRooms"]),
-    onEdit: function({ index }) {
+    ...mapMutations(["addFloor", "addRooms", "addEditedRooms", "deleteFloor"]),
+    handleEditClick: function({ index }) {
       this.$root.$emit("bv::toggle::collapse", `${index}`);
       this.addEditedRooms({
         index: index,
-        rooms: this.floors[index].rooms,
+        rooms: this.rooms(index),
       });
     },
-    onInput: function({ index, rangeFrom, rangeTo }) {
+    handleInput: function({ index, rangeFrom, rangeTo }) {
       this.addRooms({
         index: index,
         rooms: this.generateRooms(rangeFrom, rangeTo),
@@ -128,6 +138,6 @@ export default {
   width: 80px;
 }
 .input-label {
-  font-size: 22px;
+  font-size: 1.2em;
 }
 </style>
